@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const userSchema = new mongoose.Schema(
     {
@@ -9,6 +10,9 @@ const userSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
+
+// Application du plugin mongoose-unique-validator
+userSchema.plugin(uniqueValidator, { message: '{PATH} doit être unique.' });
 
 // Hash du mot de passe avant sauvegarde
 userSchema.pre('save', async function (next) {
